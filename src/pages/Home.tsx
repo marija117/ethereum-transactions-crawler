@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Home.css';
+import { Alchemy, Network } from "alchemy-sdk";
 import CustomButton from '../components/Button';
 import InputField from '../components/InputField';
 
@@ -20,18 +21,34 @@ const Home: React.FC = () => {
     setToBlock(value);
   };
 
-  const handleSubmit = () => {
-    console.log('Wallet Address:', walletAddress);
-    console.log('From Block:', fromBlock);
-    console.log('To Block:', toBlock);
+  const config = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    network: Network.ETH_MAINNET,
+  };
+
+  const alchemy = new Alchemy(config);
+  
+  async function fetchData() {
+    try {
+      const categories = ["external", "internal", "erc20", "erc721", "erc1155"];
+      const data = await alchemy.core.getAssetTransfers({
+        fromBlock: fromBlock,
+        fromAddress: walletAddress,
+        category: categories as any,
+      });
+
+      console.log('Fetched data:', data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   return (
     <div className="home-container">
-      <InputField label="Wallet Address" value={walletAddress} onChange={handleWalletAddressChange} />
-      <InputField label="From Block" value={fromBlock} onChange={handleFromBlockChange} />
-      <InputField label="To Block" value={toBlock} onChange={handleToBlockChange} />
-      <CustomButton onClick={handleSubmit} />
+      <InputField id="walletAddress" label="Wallet Address" value={walletAddress} onChange={handleWalletAddressChange} />
+      <InputField id="fromBlock" label="From Block" value={fromBlock} onChange={handleFromBlockChange} />
+      <InputField id="toBlock" label="To Block" value={toBlock} onChange={handleToBlockChange} />
+      <CustomButton label="Search" onClick={fetchData} />
   </div>
   );
 };
