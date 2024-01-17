@@ -1,32 +1,20 @@
-import React, { useState } from 'react';
-import InputField from './components/InputField';
-import Button from './components/Button';
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import './App.css'; 
 
 const App: React.FC = () => {
-  const [walletAddress, setWalletAddress] = useState('');
-  const [block, setBlock] = useState('');
-
-  const handleWalletAddressChange = (value: string) => {
-    setWalletAddress(value);
-  };
-
-  const handleBlockChange = (value: string) => {
-    setBlock(value);
-  };
-
-  const handleSubmit = () => {
-    // Handle the form submission logic
-    console.log('Input 1:', walletAddress);
-    console.log('Input 2:', block);
-  };
-
   return (
-    <div className="App">
-      <InputField label="Wallet address" value={walletAddress} onChange={handleWalletAddressChange} />
-      <InputField label="Block" value={block} onChange={handleBlockChange} />
-      <Button onClick={handleSubmit} />
+    <div className="App">      
+      <Router>
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 };
