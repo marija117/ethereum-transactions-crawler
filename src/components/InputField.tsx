@@ -7,15 +7,16 @@ const StyledTextField = styled(TextField)({
 });
 
 interface InputFieldProps {
+  id: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, value, onChange }) => {
+const InputField: React.FC<InputFieldProps> = ({ id, label, value, onChange }) => {
   return (
     <div>
-      <StyledTextField id="filled-basic" label={label} variant="standard" value={value} onChange={(e) => onChange(e.target.value)} />
+      <StyledTextField id={id} label={label} variant="standard" value={value} onChange={(e) => onChange(e.target.value)} />
     </div>
   );
 };

@@ -9,13 +9,14 @@ const StyledButton = styled(Button)({
 });
 
 interface CustomButtonProps {
+  label: string;
   onClick: () => void;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ onClick }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ label, onClick }) => {
   return (
     <StyledButton variant="outlined" color="primary" startIcon={<SearchIcon />} onClick={onClick}>
-      Search
+      {label}
     </StyledButton>
   );
 };
