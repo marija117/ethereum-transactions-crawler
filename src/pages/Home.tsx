@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Home.css';
 import { Alchemy, Network } from "alchemy-sdk";
-import CustomButton from '../components/Button';
-import InputField from '../components/InputField';
+import CustomButton from '../components/Button/Button';
+import InputField from '../components/InputField/InputField';
 
 const Home: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
