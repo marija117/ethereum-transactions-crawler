@@ -13,10 +13,10 @@ const columns: GridColDef[] = [
   { field: 'blockNum', headerName: 'Block', width: 100 },
   { field: 'from', headerName: 'From', sortable: false, width: 200 },
   { field: 'to', headerName: 'To', sortable: false, width: 200},
-  { field: 'value', headerName: 'ETH value',  type: 'number', width: 110 },
+  { field: 'value', headerName: 'ETH value', headerAlign: 'right', align: 'right', width: 110 },
 ];
 
-const transactionDataWithId = transactionData.map((item, index) => ({ ...item, id: index + 1 }));
+const transactionDataWithId = transactionData.map((item, index) => ({ ...item, id: index + 1, blockNum: parseInt(item.blockNum, 16) }));
 
   return shouldShow ? (
     <StyledContainer>

@@ -9,7 +9,6 @@ import { StyledFormContainer, StyledTableContainer } from "./Home.styles";
 const Home: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
   const [fromBlock, setFromBlock] = useState('');
-  const [toBlock, setToBlock] = useState('');
   const [transactionData, setTransactionData] = useState(Array<GridValidRowModel>);
 
   const shouldShowTable = (): boolean => { return transactionData.length !== 0; };
@@ -20,10 +19,6 @@ const Home: React.FC = () => {
 
   const handleFromBlockChange = (value: string) => {
     setFromBlock(value);
-  };
-
-  const handleToBlockChange = (value: string) => {
-    setToBlock(value);
   };
 
   const config = {
@@ -37,7 +32,7 @@ const Home: React.FC = () => {
     try {
       const categories = ["external", "internal", "erc20", "erc721", "erc1155"];
       const data = await alchemy.core.getAssetTransfers({
-        fromBlock: fromBlock,
+        fromBlock:  '0x' + Number(fromBlock).toString(16),
         fromAddress: walletAddress,
         category: categories as any,
       });
@@ -55,7 +50,6 @@ const Home: React.FC = () => {
       <StyledFormContainer>
         <InputField id="walletAddress" label="Wallet Address" value={walletAddress} onChange={handleWalletAddressChange} />
         <InputField id="fromBlock" label="From Block" value={fromBlock} onChange={handleFromBlockChange} />
-        <InputField id="toBlock" label="To Block" value={toBlock} onChange={handleToBlockChange} />
         <CustomButton label="Search" onClick={fetchData} />
       </StyledFormContainer>
       <StyledTableContainer>
