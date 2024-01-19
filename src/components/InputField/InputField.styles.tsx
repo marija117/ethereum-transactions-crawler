@@ -3,4 +3,5 @@ import TextField from '@mui/material/TextField';
 
 export const StyledTextField = styled(TextField)({
   margin: '15px',
+  width: 200
 });
