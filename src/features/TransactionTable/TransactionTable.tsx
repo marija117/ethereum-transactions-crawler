@@ -3,9 +3,10 @@ import { StyledContainer } from "./TransactionTable.styles";
 import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 
 interface TransactionTableProps {
-    shouldShow: boolean;
-    transactionData: Array<GridValidRowModel>; 
-  }
+  shouldShow: boolean;
+  transactionData: Array<GridValidRowModel>; 
+}
+
 const TransactionTable: React.FC<TransactionTableProps> = ({ shouldShow, transactionData }) => {
 
 const columns: GridColDef[] = [
