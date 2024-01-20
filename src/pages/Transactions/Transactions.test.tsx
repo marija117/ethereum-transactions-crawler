@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Transactions from './Transactions';
-import { fetchData } from './apiUtils';
+import { fetchData } from '../../utils/apiUtils';
 
 jest.mock('./apiUtils', () => ({
   fetchData: jest.fn(),

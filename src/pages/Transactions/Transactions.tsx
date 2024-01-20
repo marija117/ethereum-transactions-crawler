@@ -4,7 +4,7 @@ import { StyledTableContainer } from "./Transactions.styles";
 import SearchForm from '../../features/SearchForm/SearchForm';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import TransactionTable from '../../features/TransactionTable/TransactionTable';
-import { fetchData } from './apiUtils';
+import { fetchData } from '../../utils/apiUtils';
 
 const Transactions: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
