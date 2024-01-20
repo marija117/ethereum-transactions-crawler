@@ -4,6 +4,7 @@ import CustomButton from '../../components/Button/Button';
 import { StyledSearchFormContainer } from "./SearchForm.styles";
 
 interface SearchFormProps {
+  'data-testid': string,
   walletAddress: string;
   fromBlock: string;
   onWalletAddressChange: (value: string) => void;
@@ -12,6 +13,7 @@ interface SearchFormProps {
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
+  'data-testid': testId,
   walletAddress,
   fromBlock,
   onWalletAddressChange,
@@ -19,7 +21,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
   onSearchClick,
 }) => {
   return (
-    <StyledSearchFormContainer>
+    <StyledSearchFormContainer data-testid={testId}>
       <InputField id="walletAddress" label="Wallet Address" value={walletAddress} onChange={onWalletAddressChange} />
       <InputField id="fromBlock" label="From Block" value={fromBlock} onChange={onFromBlockChange} />
       <CustomButton label="Search" onClick={onSearchClick} />

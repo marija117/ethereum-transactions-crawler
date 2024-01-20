@@ -3,11 +3,12 @@ import { StyledContainer } from "./TransactionTable.styles";
 import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 
 interface TransactionTableProps {
+  'data-testid': string,
   shouldShow: boolean;
   transactionData: Array<GridValidRowModel>; 
 }
 
-const TransactionTable: React.FC<TransactionTableProps> = ({ shouldShow, transactionData }) => {
+const TransactionTable: React.FC<TransactionTableProps> = ({ 'data-testid': testId, shouldShow, transactionData }) => {
 
 const columns: GridColDef[] = [
   { field: 'hash', headerName: 'Transaction Hash', width: 250 },
@@ -20,7 +21,7 @@ const columns: GridColDef[] = [
 const transactionDataWithId = transactionData.map((item, index) => ({ ...item, id: index + 1, blockNum: parseInt(item.blockNum, 16) }));
 
   return shouldShow ? (
-    <StyledContainer>
+    <StyledContainer data-testid={testId}>
       <DataGrid
         rows={transactionDataWithId}
         columns={columns}

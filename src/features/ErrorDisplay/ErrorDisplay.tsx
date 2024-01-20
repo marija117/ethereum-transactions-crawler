@@ -2,14 +2,15 @@ import React from 'react';
 import { StyledUl, StyledLi } from "./ErrorDisplay.styles";
 
 interface ErrorDisplayProps {
+  'data-testid': string,
   errors: string[];
 }
 
-const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ errors }) => {
+const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ 'data-testid': testId, errors }) => {
   return (
-    <div>
+    <div data-testid={testId}>
       {errors.length > 0 && (
-        <div>
+        <div data-testid={testId}>
           <StyledUl>
             {errors.map((error, index) => (
               <StyledLi key={index}>

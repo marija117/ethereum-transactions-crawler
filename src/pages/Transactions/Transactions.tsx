@@ -72,8 +72,9 @@ const Transactions: React.FC = () => {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      <ErrorDisplay errors={errors} />
+      <ErrorDisplay data-testid="transactions-error-display" errors={errors} />
       <SearchForm
+        data-testid="transactions-search-form"
         walletAddress={walletAddress}
         fromBlock={fromBlock}
         onWalletAddressChange={handleWalletAddressChange}
@@ -81,7 +82,7 @@ const Transactions: React.FC = () => {
         onSearchClick={handleSearchClick}
       />
       <StyledTableContainer>
-        <TransactionTable shouldShow={isTableVisible} transactionData={transactionData}/>
+        <TransactionTable data-testid="transactions-transaction-table" shouldShow={isTableVisible} transactionData={transactionData}/>
       </StyledTableContainer>
     </div>
   );
