@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Alchemy, Network } from "alchemy-sdk";
-import CustomButton from '../../components/Button/Button';
-import InputField from '../../components/InputField/InputField';
-import TransactionTable from '../../components/TransactionTable/TransactionTable';
 import { GridValidRowModel } from '@mui/x-data-grid';
-import { StyledFormContainer, StyledTableContainer } from "./Home.styles";
+import { StyledTableContainer } from "./Home.styles";
+import SearchForm from '../../features/SearchForm/SearchForm';
+import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
+import TransactionTable from '../../features/TransactionTable/TransactionTable';
+import { fetchData } from './apiUtils';
 
 const Home: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
   const [fromBlock, setFromBlock] = useState('');
   const [transactionData, setTransactionData] = useState(Array<GridValidRowModel>);
-
-  const shouldShowTable = (): boolean => { return transactionData.length !== 0; };
+  const [isTableVisible, setIsTableVisible] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleWalletAddressChange = (value: string) => {
     setWalletAddress(value);
@@ -21,39 +22,66 @@ const Home: React.FC = () => {
     setFromBlock(value);
   };
 
-  const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    network: Network.ETH_MAINNET,
+  const validateInput = () => {
+    const inputErrors: string[] = [];
+
+    // Check if fromBlock is a valid number
+    if (isNaN(Number(fromBlock))) {
+      inputErrors.push('Invalid value for From Block. Please provide a valid number.');
+    }
+
+    // Check if walletAddress is present
+    if (!walletAddress) {
+      inputErrors.push('Wallet Address is required and it cannot be empty.');
+    }
+    return inputErrors;
   };
 
-  const alchemy = new Alchemy(config);
-  
-  async function fetchData() {
-    try {
-      const categories = ["external", "internal", "erc20", "erc721", "erc1155"];
-      const data = await alchemy.core.getAssetTransfers({
-        fromBlock:  '0x' + Number(fromBlock).toString(16),
-        fromAddress: walletAddress,
-        category: categories as any,
-      });
+  const handleSearchClick = async () => {
+     try {
+      setLoading(true);
 
-      console.log('Fetched data:', data.transfers);
-      setTransactionData(data.transfers);
+      // Validate input
+      const inputErrors = validateInput();
+      if (inputErrors.length > 0) {
+        setErrors(inputErrors);
+        setIsTableVisible(false);
+        setLoading(false);
+        return;
+      }
+
+      // Make the API call using the utility function
+      const data = await fetchData(fromBlock, walletAddress);
+
+      // Handle successful response
+      console.log('Fetched data:', data);
+      setTransactionData(data);
+      setIsTableVisible(true);
+      setErrors([]);
 
     } catch (error) {
+      // Handle unsuccessful response
       console.error('Error fetching data:', error);
+      setIsTableVisible(false);
+      setErrors([error instanceof Error ? error.message : 'An error occurred while fetching data.']);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <StyledFormContainer>
-        <InputField id="walletAddress" label="Wallet Address" value={walletAddress} onChange={handleWalletAddressChange} />
-        <InputField id="fromBlock" label="From Block" value={fromBlock} onChange={handleFromBlockChange} />
-        <CustomButton label="Search" onClick={fetchData} />
-      </StyledFormContainer>
+      {loading && <p>Loading...</p>}
+      <ErrorDisplay errors={errors} />
+      <SearchForm
+        walletAddress={walletAddress}
+        fromBlock={fromBlock}
+        onWalletAddressChange={handleWalletAddressChange}
+        onFromBlockChange={handleFromBlockChange}
+        onSearchClick={handleSearchClick}
+      />
       <StyledTableContainer>
-        <TransactionTable shouldShow={shouldShowTable()} transactionData={transactionData}/>
+        <TransactionTable shouldShow={isTableVisible} transactionData={transactionData}/>
       </StyledTableContainer>
     </div>
   );
