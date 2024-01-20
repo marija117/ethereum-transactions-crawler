@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Home from './pages/Home/Home';
+import Transactions from './pages/Transactions/Transactions';
 import './App.css'; 
 
 const App: React.FC = () => {
@@ -11,7 +11,7 @@ const App: React.FC = () => {
         <div>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Transactions />} />
           </Routes>
         </div>
       </Router>

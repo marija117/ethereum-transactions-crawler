@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
     <StyledNav>
       <StyledUl>
         <StyledLi>
-          <StyledLink to="/" className="nav-link">Home</StyledLink>
+          <StyledLink to="/" className="nav-link">Transactions</StyledLink>
         </StyledLi>
         <StyledLi>
           <StyledLink to="https://www.linkedin.com/in/marija-kuveljic-4a7553129/">Linkedn</StyledLink>

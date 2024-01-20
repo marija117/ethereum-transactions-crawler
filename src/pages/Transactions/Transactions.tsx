@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GridValidRowModel } from '@mui/x-data-grid';
-import { StyledTableContainer } from "./Home.styles";
+import { StyledTableContainer } from "./Transactions.styles";
 import SearchForm from '../../features/SearchForm/SearchForm';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import TransactionTable from '../../features/TransactionTable/TransactionTable';
