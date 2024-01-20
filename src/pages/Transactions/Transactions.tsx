@@ -6,7 +6,7 @@ import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import TransactionTable from '../../features/TransactionTable/TransactionTable';
 import { fetchData } from './apiUtils';
 
-const Home: React.FC = () => {
+const Transactions: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
   const [fromBlock, setFromBlock] = useState('');
   const [transactionData, setTransactionData] = useState(Array<GridValidRowModel>);
@@ -87,4 +87,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Transactions;
