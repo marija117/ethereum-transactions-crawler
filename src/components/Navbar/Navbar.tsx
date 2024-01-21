@@ -9,6 +9,9 @@ const Navbar: React.FC = () => {
           <StyledLink to="/" className="nav-link">Transactions</StyledLink>
         </StyledLi>
         <StyledLi>
+          <StyledLink to="/token-amounts" className="nav-link">Token amounts</StyledLink>
+        </StyledLi>
+        <StyledLi>
           <StyledLink to="https://www.linkedin.com/in/marija-kuveljic-4a7553129/">Linkedn</StyledLink>
         </StyledLi>
         <StyledLi>
