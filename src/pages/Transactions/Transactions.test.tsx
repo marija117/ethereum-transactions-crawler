@@ -54,7 +54,7 @@ describe('Transactions Component', () => {
     fireEvent.click(screen.getByText('Search'));
 
     await waitFor(() => {
-      expect(fetchData).toHaveBeenCalledWith('0x0', 'testWalletAddress');
+      expect(fetchData).toHaveBeenCalledWith('testWalletAddress', '0x0');
       const transactionTable = screen.getByTestId('transactions-transaction-table');
       expect(transactionTable).toBeInTheDocument();
     });

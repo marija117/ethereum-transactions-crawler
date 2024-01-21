@@ -51,7 +51,7 @@ const Transactions: React.FC = () => {
       }
 
       // Make the API call using the utility function
-      const data = await fetchData(fromBlock, walletAddress);
+      const data = await fetchData(walletAddress, fromBlock);
 
       // Handle successful response
       console.log('Fetched data:', data);
