@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import Transactions from './Transactions';
 import { fetchData } from '../../utils/apiUtils';
 
-jest.mock('./apiUtils', () => ({
+jest.mock('../../utils/apiUtils', () => ({
   fetchData: jest.fn(),
 }));
 
