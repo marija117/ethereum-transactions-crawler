@@ -21,8 +21,7 @@ export const fetchData = async (walletAddress: string, fromBlock: string) => {
 };
 
 export const getEthValueAtDate = async (walletAddress: string, date: Date | null) => {
-  const timestamp = (date as Date).toISOString();
-  let block = await dater.getDate(timestamp);
+  let block = await dater.getDate(date as Date);
   block  = block['block'] as any
 
   const balanceResponse = await alchemy.core.getBalance(walletAddress, block as any);

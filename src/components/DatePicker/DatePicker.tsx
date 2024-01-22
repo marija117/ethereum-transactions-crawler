@@ -26,6 +26,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({ label, value, onChange 
         onClose={() => setOpen(false)}
         value={value}
         onChange={handleDateChange}
+        timezone="UTC"
       />
     </LocalizationProvider>
   );
