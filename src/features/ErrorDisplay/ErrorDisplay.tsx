@@ -10,7 +10,7 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ 'data-testid': testId, erro
   return (
     <div data-testid={testId}>
       {errors.length > 0 && (
-        <div data-testid={testId}>
+        <div>
           <StyledUl>
             {errors.map((error, index) => (
               <StyledLi key={index}>

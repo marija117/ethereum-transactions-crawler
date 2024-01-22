@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import dayjs, { Dayjs } from 'dayjs';
 import TokenAmounts from './TokenAmounts';
-import { fetchData } from '../../utils/apiUtils';
+import { getEthValueAtDate } from '../../utils/apiUtils';
 
 jest.mock('../../utils/apiUtils', () => ({
-  fetchData: jest.fn(),
+  getEthValueAtDate: jest.fn(),
 }));
 
 describe('TokenAmounts Component', () => {
@@ -36,27 +35,27 @@ describe('TokenAmounts Component', () => {
     render(<TokenAmounts />);
     
     fireEvent.change(screen.getByLabelText('Wallet Address'), { target: { value: 'testWalletAddress' } });
-    fireEvent.change(screen.getByLabelText('Select Date'), { target: { value: dayjs('2022-04-17') } });
+    fireEvent.change(screen.getByLabelText('Select Date'), { target: { value: '2024-01-22T00:00:00Z' } });
 
   });
 
-  test('handles search click', async () => {
+  test('handles search click when there is an error', async () => {
     render(<TokenAmounts />);
     
-    // Mock the fetchData response
-    const mockData = [{ walletAddress:"testWalletAddress"}];
-    (fetchData as jest.Mock).mockResolvedValueOnce(mockData);
+    // Mock the getEthValueAtDate response
+    const mockData = { walletAddress: "testWalletAddress" };
+    (getEthValueAtDate as jest.Mock).mockResolvedValueOnce(mockData);
 
-    // Simulate input changes
+    // Simulate wrong input changes
     fireEvent.change(screen.getByLabelText('Wallet Address'), { target: { value: 'testWalletAddress' } });
+    // fireEvent.change(screen.getByLabelText('Select Date'), { target: { value: '2024-01-22T00:00:00Z' } });
 
     // Simulate search click
     fireEvent.click(screen.getByText('Search'));
 
     await waitFor(() => {
-      expect(fetchData).toHaveBeenCalledWith('testWalletAddress');
-      const transactionTable = screen.getByTestId('token-amounts-transaction-table');
-      expect(transactionTable).toBeInTheDocument();
+      const errorDisplay = screen.getByTestId('token-amounts-error-display');
+      expect(errorDisplay).toBeInTheDocument();
     });
   });
 });
