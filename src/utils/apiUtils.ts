@@ -29,3 +29,9 @@ export const getEthValueAtDate = async (walletAddress: string, date: Date | null
 
   return parseFloat(ethBalance);
 };
+
+//get erc20 tokens balances for the address 
+export const getTokenAmounts = async (walletAddress: string) => {
+  const tokenBalances = await alchemy.core.getTokenBalances(walletAddress);
+  return tokenBalances;
+}
