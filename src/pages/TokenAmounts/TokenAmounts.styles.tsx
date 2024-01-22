@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
 
-export const StyledTableContainer = styled('div')({
+export const StyledCardContainer = styled('div')({
   marginTop: '100px',
   display: 'flex',
   alignItems: 'center',
