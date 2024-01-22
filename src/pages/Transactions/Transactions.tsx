@@ -54,14 +54,12 @@ const Transactions: React.FC = () => {
       const data = await fetchData(walletAddress, fromBlock);
 
       // Handle successful response
-      console.log('Fetched data:', data);
       setTransactionData(data);
       setIsTableVisible(true);
       setErrors([]);
 
     } catch (error) {
       // Handle unsuccessful response
-      console.error('Error fetching data:', error);
       setIsTableVisible(false);
       setErrors([error instanceof Error ? error.message : 'An error occurred while fetching data.']);
     } finally {

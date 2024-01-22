@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Card from '../../components/Card/Card';
+import CustomCard from '../../components/Card/Card';
 import SearchForm from '../../features/SearchForm/SearchForm';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
-import { getEthValueAtDate } from '../../utils/apiUtils';
 import { StyledCardContainer } from "./TokenAmounts.styles";
+import { getEthValueAtDate } from '../../utils/apiUtils';
 
 const TokenAmounts: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState('');
@@ -13,6 +13,7 @@ const TokenAmounts: React.FC = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const title = "ETH BALANCE";
+
   const handleWalletAddressChange = (value: string) => {
     setWalletAddress(value);
   };
@@ -27,6 +28,11 @@ const TokenAmounts: React.FC = () => {
     // Check if walletAddress is present
     if (!walletAddress) {
       inputErrors.push('Wallet Address is required and it cannot be empty.');
+    }
+
+    // Check if date is present
+    if (!date) {
+      inputErrors.push('Date is required and it cannot be empty.');
     }
     return inputErrors;
   };
@@ -48,14 +54,12 @@ const TokenAmounts: React.FC = () => {
       const ethBalance = await getEthValueAtDate(walletAddress, date);
 
       // Handle successful response
-      console.log('Fetched data:', ethBalance);
       setEthValue(ethBalance);
       setIsCardVisible(true);
       setErrors([]);
 
     } catch (error) {
       // Handle unsuccessful response
-      console.error('Error fetching data:', error);
       setIsCardVisible(false);
       setErrors([error instanceof Error ? error.message : 'An error occurred while fetching data.']);
     } finally {
@@ -76,7 +80,7 @@ const TokenAmounts: React.FC = () => {
         onSearchClick={handleSearchClick}
       />
       <StyledCardContainer>
-        <Card shouldShow={isCardVisible} title={title} content={ethValue}/>
+        <CustomCard data-testid="token-amounts-card" shouldShow={isCardVisible} title={title} content={ethValue}/>
       </StyledCardContainer>
     </div>
   );
