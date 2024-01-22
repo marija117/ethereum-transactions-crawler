@@ -1,25 +1,29 @@
 import React from 'react';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { StyledCard} from "./Card.styles";
 
 interface CardProps {
+  shouldShow: boolean;
   title: string;
-  content: string;
+  content: number;
 }
 
-const CustomCard: React.FC<CardProps> = ({ title, content }) => {
-  return (
-    <Card>
+const CustomCard: React.FC<CardProps> = ({ shouldShow, title, content }) => {
+
+  return shouldShow ? (
+    <StyledCard variant="outlined">
       <CardContent>
-        <Typography variant="h5" component="div">
+        <Typography variant="h6" component="div">
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {content}
+          {content}ETH
         </Typography>
       </CardContent>
-    </Card>
+    </StyledCard>
+  ): (
+    <></>
   );
 };
 
